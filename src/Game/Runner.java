@@ -2,6 +2,7 @@ package Game;
 
 import People.Person;
 import Rooms.Room;
+import Rooms.RoomInConstruction;
 import Rooms.WinningRoom;
 
 import java.util.Scanner;
@@ -28,6 +29,11 @@ public class Runner {
 		int x = (int)(Math.random()*building.length);
 		int y = (int)(Math.random()*building.length);
 		building[x][y] = new WinningRoom(x, y);
+
+		int z = (int)(Math.random()*building.length);
+		int a = (int)(Math.random()*building.length);
+		building[x][y] = new RoomInConstruction(z, a);
+
 		 
 		 //Setup player 1 and the input scanner
 		Person player1 = new Person("FirstName", "FamilyName", 0,0);
@@ -40,7 +46,7 @@ public class Runner {
 			if(validMove(move, player1, building))
 			{
 				System.out.println("Your coordinates: row = " + player1.getxLoc() + " col = " + player1.getyLoc());
-				
+				System.out.println(map(player1.getxLoc(),player1.getyLoc()));
 			}
 			else {
 				System.out.println("Please choose a valid move.");
@@ -49,6 +55,31 @@ public class Runner {
 			
 		}
 		in.close();
+	}
+
+	public static String map(int x, int y)
+	{
+		String[][] map = new String[5][5];
+		for (int i = 0; i<map.length; i++ )
+		{
+			for (int j =0; j< map[i].length; j++)
+			{
+				map[i][j]="O";
+			}
+		}
+		map[x][y]= "X";
+
+		String result="";
+		for (int i = 0; i<map.length; i++ )
+		{
+			for (int j =0; j< map[i].length; j++)
+			{
+				result = result+map[i][j];
+			}
+			result=result+"\n";
+		}
+		return result;
+
 	}
 
 	/**
